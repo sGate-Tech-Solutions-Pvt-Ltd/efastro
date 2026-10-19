@@ -49,15 +49,19 @@ function stripPodcastPlayerBoilerplate(text: string): string {
   return text.slice(match.index + match[0].length);
 }
 
-// Image URLs come back absolute (https://www.elitefitness.com/articles/wp-content/...),
-// which bakes the WordPress origin straight into the page source. Cloudflare
-// proxies /wp-content/* and /articles/wp-content/* paths on the same domain
-// (see the architecture plan), so a relative path resolves the same way
-// without exposing the CMS host directly.
+// Image URLs come back absolute (https://www.elitefitness.com/articles/wp-content/
+// uploads/2024/06/file.jpg), which bakes both the WordPress origin and the
+// "wp-content/uploads" CMS fingerprint into page source. Rewrite to an opaque
+// /media/<year>/<month>/<file> path; the Worker (src/worker.ts) maps that
+// pattern back to the real uploads path when proxying to the CMS origin.
+const UPLOADS_PATH_PATTERN = /\/wp-content\/uploads\/(\d{4}\/\d{2}\/.+)$/;
+
 function toRelativeMediaPath(url: string | undefined): string | undefined {
   if (!url) return url;
   try {
-    return new URL(url).pathname;
+    const { pathname } = new URL(url);
+    const match = pathname.match(UPLOADS_PATH_PATTERN);
+    return match ? `/media/${match[1]}` : pathname;
   } catch {
     return url;
   }
