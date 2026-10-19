@@ -1,5 +1,8 @@
 ---
-import { articles, SITE, THEME_IMG } from "../data/home";
+import { articles as staticArticles, SITE, THEME_IMG } from "../data/home";
+import { fetchLatestArticles } from "../lib/wordpress";
+
+const articles = (await fetchLatestArticles(3)) ?? staticArticles;
 ---
 <div id="articles-box">
   <div class="featured-articles">
@@ -7,7 +10,7 @@ import { articles, SITE, THEME_IMG } from "../data/home";
     {articles.map((a) => (
       <article>
         <div class="article-thumb mobc">
-          <a href={a.href}><img src={`${THEME_IMG}/article-thumb.jpg`} width="300" height="200" alt={a.title} loading="lazy" /></a>
+          <a href={a.href}><img src={a.image ?? `${THEME_IMG}/article-thumb.jpg`} width="300" height="200" alt={a.title} loading="lazy" /></a>
         </div>
         <div class="date mobdc"><strong>{a.day}</strong><br />{a.month}</div>
         <div class="excerpt">
@@ -15,7 +18,7 @@ import { articles, SITE, THEME_IMG } from "../data/home";
           <p>{a.excerpt}<br /><a href={a.href}>Read More</a></p>
         </div>
         <div class="article-thumb dskc">
-          <a href={a.href}><img src={`${THEME_IMG}/article-thumb.jpg`} width="300" height="200" alt={a.title} loading="lazy" /></a>
+          <a href={a.href}><img src={a.image ?? `${THEME_IMG}/article-thumb.jpg`} width="300" height="200" alt={a.title} loading="lazy" /></a>
         </div>
       </article>
     ))}
