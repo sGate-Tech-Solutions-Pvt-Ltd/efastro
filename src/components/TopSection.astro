@@ -1,0 +1,31 @@
+---
+import { SITE, stats } from "../data/home";
+---
+<div id="top-section">
+  <div class="top">
+    <div class="headline">
+      <h1>Everything you've ever been told about <strong>anabolic steroids and bodybuilding</strong> is a lie...</h1>
+    </div>
+    <div class="norton clearfix"></div>
+  </div>
+  <div class="bottom">
+    <div class="half">
+      <p>For over two decades <strong>EliteFitness.com</strong> is where men discover the truth about anabolic steroids and bodybuilding.</p>
+      <p>Right now, join our enlightened community of <span class="count">{stats.members} bodybuilders</span> with over <span class="count">{stats.posts} posts</span>.</p>
+      <p><strong>George Spellwin,</strong> Founder</p>
+      <p>
+        <strong>
+          <a href={`${SITE}/bodybuilding/steroids/`} target="_blank">Read our Archives</a><br />
+          <a href={`${SITE}/forum/forum.php`} target="_blank">Read our Forums</a>
+        </strong>
+      </p>
+    </div>
+    <div class="norton clearfix"></div>
+    <div class="half">
+      <div id="get-started-box">
+        <div class="cta"><a href={`${SITE}/forum/register.php`}>GET STARTED NOW</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="rowcustom"></div>

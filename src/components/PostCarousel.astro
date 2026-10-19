@@ -1,0 +1,64 @@
+---
+import { carousel } from "../data/home";
+---
+<div id="pcp_wrapper-5693" class="sp-pcp-section sp-pcp-container pcp-wrapper-5693 pcp-carousel-wrapper standard sp-carousel_layout">
+  <div id="sp-pcp-id-5693" class="swiper swiper-container sp-pcp-carousel top_right" dir="ltr" data-post-carousel>
+    <div class="swiper-wrapper">
+      {carousel.map((item, i) => (
+        <div class="swiper-slide">
+          <div class="sp-pcp-post default">
+            <div class="pcp-post-thumb-wrapper">
+              <div class="sp-pcp-post-thumb-area">
+                <a class="sp-pcp-thumb" href={item.href} target="_blank" rel="nofollow">
+                  <img
+                    src={item.img}
+                    width={item.w}
+                    height={item.h}
+                    alt=""
+                    loading={i < 4 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="sp-pcp-post-details"><div class="sp-pcp-post-details-content"></div></div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="pcp-pagination swiper-pagination dots"></div>
+    <div class="pcp-button-next swiper-button-next top_right"><i class="fa fa-angle-right"></i></div>
+    <div class="pcp-button-prev swiper-button-prev top_right"><i class="fa fa-angle-left"></i></div>
+  </div>
+</div>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Pagination, Autoplay, Keyboard, Mousewheel } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import "swiper/css/pagination";
+
+  // Same settings the Post Carousel plugin used on the WordPress homepage.
+  const el = document.querySelector<HTMLElement>("[data-post-carousel]");
+  if (el) {
+    new Swiper(el, {
+      modules: [Navigation, Pagination, Autoplay, Keyboard, Mousewheel],
+      speed: 600,
+      loop: true,
+      autoHeight: true,
+      spaceBetween: 20,
+      slidesPerView: 1,
+      autoplay: { delay: 2000, pauseOnMouseEnter: true, disableOnInteraction: false },
+      keyboard: { enabled: true },
+      mousewheel: { forceToAxis: true },
+      navigation: { nextEl: ".pcp-button-next", prevEl: ".pcp-button-prev" },
+      pagination: { el: ".pcp-pagination", clickable: true },
+      breakpoints: {
+        480: { slidesPerView: 2 },
+        736: { slidesPerView: 3 },
+        980: { slidesPerView: 4 },
+      },
+    });
+  }
+</script>

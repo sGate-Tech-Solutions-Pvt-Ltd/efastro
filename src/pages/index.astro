@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import TopSection from "../components/TopSection.astro";
+import PostCarousel from "../components/PostCarousel.astro";
+import ExpertArticles from "../components/ExpertArticles.astro";
+import ForumSections from "../components/ForumSections.astro";
+import Footer from "../components/Footer.astro";
+import LeadPopup from "../components/LeadPopup.astro";
+import BackToTop from "../components/BackToTop.astro";
+
+const description =
+  "EliteFitness Is the oldest bodybuilding community forums in the world, started in 1996 it has grow to over 400,000 members. With topics like Anabolic steroids,Sarms,prohormones,TRT, hormone replacement and bodybuilding.";
+const bodyClass =
+  "home blog wp-theme-genesis wp-child-theme-magazine-pro custom-header header-image full-width-content genesis-breadcrumbs-hidden genesis-footer-widgets-visible magazine-home";
+---
+<BaseLayout title="EliteFitness.com Bodybuilding and Steroids Mega community" description={description} bodyClass={bodyClass}>
+  <Header />
+  <div class="site-container">
+    <div class="background-couple"></div>
+    <div class="site-inner">
+      <div class="content-sidebar-wrap">
+        <main class="content">
+          <TopSection />
+          <PostCarousel />
+          <ExpertArticles />
+        </main>
+      </div>
+      <ForumSections />
+    </div>
+    <Footer />
+  </div>
+  <BackToTop />
+  <LeadPopup />
+  <script src="../scripts/site.ts"></script>
+</BaseLayout>

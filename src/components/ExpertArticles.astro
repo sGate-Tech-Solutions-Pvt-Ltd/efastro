@@ -1,0 +1,24 @@
+---
+import { articles, SITE, THEME_IMG } from "../data/home";
+---
+<div id="articles-box">
+  <div class="featured-articles">
+    <h2><a href={`${SITE}/articles/`}>ELITEFITNESS <span class="smaller">EXPERT ARTICLES</span></a></h2>
+    {articles.map((a) => (
+      <article>
+        <div class="article-thumb mobc">
+          <a href={a.href}><img src={`${THEME_IMG}/article-thumb.jpg`} width="300" height="200" alt={a.title} loading="lazy" /></a>
+        </div>
+        <div class="date mobdc"><strong>{a.day}</strong><br />{a.month}</div>
+        <div class="excerpt">
+          <h3><a href={a.href}>{a.title}</a></h3>
+          <p>{a.excerpt}<br /><a href={a.href}>Read More</a></p>
+        </div>
+        <div class="article-thumb dskc">
+          <a href={a.href}><img src={`${THEME_IMG}/article-thumb.jpg`} width="300" height="200" alt={a.title} loading="lazy" /></a>
+        </div>
+      </article>
+    ))}
+    <div class="cta-link"><a href={`${SITE}/articles/`}>View All Elite Fitness’s Expert Articles</a></div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+---
+import { navLinks, SITE, THEME_IMG } from "../data/home";
+---
+<header>
+  <div style="clear:both;"></div>
+
+  <nav id="mySidenav" class="sidenav" aria-label="Main menu">
+    <a href="javascript:void(0)" class="closebtn" data-close-nav aria-label="Close menu">&times;</a>
+    {navLinks.map((l) => (
+      <a target="_blank" href={l.href} itemprop="url">{l.label}</a>
+    ))}
+    <a target="_blank" href={`${SITE}/articles/podcast/`}>
+      <span class="btn btn-danger btn-lg btn-block" style="display:inline-block;background-color:#ff0000;font-size:15px;padding:5px;width:60%;">
+        <img src={`${THEME_IMG}/podcast.png`} width="20" alt="" />PODCAST
+      </span>
+    </a>
+    <a target="_blank" href={`${SITE}/forum/forum.php`} itemprop="url">
+      <span class="btn btn-danger btn-lg btn-block" style="display:inline-block;background-color:#F09311;font-size:15px;padding:5px;width:60%;">COMMUNITY</span>
+    </a>
+  </nav>
+
+  <div id="main">
+    <button type="button" class="nav-toggle" data-open-nav aria-label="Open menu" aria-controls="mySidenav">&#9776;</button>
+    <span>
+      <a href="/"><img src={`${THEME_IMG}/new-white-elite-logo.png`} width="60" alt="EliteFitness" /></a>
+    </span>
+    <span style="float:right;line-height:46px;">
+      <a href={`${SITE}/articles/podcast/`} target="_blank">
+        <span style="background:#ff0005;border-radius:4px;margin-right:0;padding:5px 5px;color:#fff;">
+          <img src={`${THEME_IMG}/podcast.png`} width="20" alt="" />PODCAST
+        </span>
+      </a>
+      <a
+        href={`${SITE}/forum/forum.php`}
+        class="mobdevice"
+        style="color:#fff;margin-top:5px;background:#F09311;padding:5px 10px;margin-right:25px;border-radius:4px;"
+        target="_blank">COMMUNITY</a>&nbsp;&nbsp;&nbsp;
+      <button type="button" class="search-toggle" data-search-toggle aria-label="Search" aria-expanded="false">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+      <div class="search-box" id="site-search">
+        <form method="get" action={`${SITE}/`} role="search" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
+          <input type="search" name="s" placeholder="Search the site ..." itemprop="query-input" aria-label="Search the site" />
+          <input type="submit" value="Search" />
+          <meta content={`${SITE}/?s={s}`} itemprop="target" />
+        </form>
+      </div>
+    </span>
+  </div>
+</header>
+<div style="clear:both;"></div>

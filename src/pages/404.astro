@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+<BaseLayout title="Page not found | EliteFitness" description="This page could not be found." bodyClass="full-width-content">
+  <Header />
+  <div class="site-container">
+    <div class="site-inner" style="padding:60px 20px;text-align:center;">
+      <h1>Page not found</h1>
+      <p>The page you requested isn't here. <a href="/">Go to the homepage</a> or <a href="https://www.elitefitness.com/forum/forum.php">browse the forums</a>.</p>
+    </div>
+    <Footer />
+  </div>
+  <script src="../scripts/site.ts"></script>
+</BaseLayout>

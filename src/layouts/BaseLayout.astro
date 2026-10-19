@@ -1,0 +1,42 @@
+---
+import "font-awesome/css/font-awesome.min.css";
+import "../styles/overrides.css";
+
+interface Props {
+  title: string;
+  description: string;
+  bodyClass?: string;
+}
+const { title, description, bodyClass = "" } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en-US">
+  <head itemscope itemtype="https://schema.org/WebSite">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="max-image-preview:large" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    <meta itemprop="name" content="EliteFitness" />
+    <meta itemprop="url" content={Astro.site} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700%7CDroid+Sans:400,700&display=swap"
+    />
+    <!-- Original Genesis / Magazine Pro theme stylesheet, served as-is -->
+    <link rel="stylesheet" href="/css/theme.css" />
+
+    <link rel="icon" href="/wp-content/uploads/2023/03/cropped-elite-logo-fav-512-32x32.jpg" sizes="32x32" />
+    <link rel="icon" href="/wp-content/uploads/2023/03/cropped-elite-logo-fav-512-192x192.jpg" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/wp-content/uploads/2023/03/cropped-elite-logo-fav-512-180x180.jpg" />
+    <link rel="alternate" type="application/rss+xml" title="EliteFitness » Feed" href="https://www.elitefitness.com/feed/" />
+  </head>
+  <body class={bodyClass} itemscope itemtype="https://schema.org/WebPage">
+    <slot />
+  </body>
+</html>

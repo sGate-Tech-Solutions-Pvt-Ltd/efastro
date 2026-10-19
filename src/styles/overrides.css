@@ -1,0 +1,24 @@
+/* Small additions needed after removing the WordPress plugins' JS. */
+
+/* Search panel toggled by the header search icon */
+.search-box.is-open { display: block; }
+
+/* Lead popup toggled by [data-open-lead] */
+.white_content.is-open,
+.black_overlay.is-open { display: block; }
+
+/* Swiper v11 uses .swiper; keep the plugin's .swiper-container sizing */
+.sp-pcp-carousel.swiper { overflow: hidden; position: relative; }
+.sp-pcp-carousel .swiper-slide img { width: 100%; height: auto; display: block; }
+.sp-pcp-carousel .pcp-button-next,
+.sp-pcp-carousel .pcp-button-prev { color: #fff; }
+.sp-pcp-carousel .pcp-button-next::after,
+.sp-pcp-carousel .pcp-button-prev::after { content: none; }
+
+/* Back-to-top button (replaces Smart Post plugin script) */
+#sp-smart-post-back-to-top-btn { transition: opacity .3s; pointer-events: none; }
+#sp-smart-post-back-to-top-btn.is-visible { opacity: 1 !important; pointer-events: auto; cursor: pointer; }
+
+/* Header search icon is a button now; keep the original look */
+.search-toggle { background: none; border: 0; padding: 0; cursor: pointer; color: #fff; font-size: 25px; position: relative; z-index: 99; }
+.nav-toggle { background: none; border: 0; padding: 0; font-size: 30px; cursor: pointer; color: #fff !important; }
