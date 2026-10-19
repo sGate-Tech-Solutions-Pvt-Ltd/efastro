@@ -49,6 +49,20 @@ function stripPodcastPlayerBoilerplate(text: string): string {
   return text.slice(match.index + match[0].length);
 }
 
+// Image URLs come back absolute (https://www.elitefitness.com/articles/wp-content/...),
+// which bakes the WordPress origin straight into the page source. Cloudflare
+// proxies /wp-content/* and /articles/wp-content/* paths on the same domain
+// (see the architecture plan), so a relative path resolves the same way
+// without exposing the CMS host directly.
+function toRelativeMediaPath(url: string | undefined): string | undefined {
+  if (!url) return url;
+  try {
+    return new URL(url).pathname;
+  } catch {
+    return url;
+  }
+}
+
 function formatDate(iso: string): { day: string; month: string } {
   const d = new Date(iso);
   return {
@@ -69,7 +83,7 @@ export async function fetchLatestArticles(count = 3): Promise<Article[] | null> 
       // This site's `date` field is unreliable (seen desynced from `date_gmt`
       // by months on some posts); `date_gmt` matches what the live site displays.
       const { day, month } = formatDate(p.date_gmt);
-      const image = p._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+      const image = toRelativeMediaPath(p._embedded?.["wp:featuredmedia"]?.[0]?.source_url);
       const excerpt = stripPodcastPlayerBoilerplate(stripHtml(p.excerpt.rendered));
       return {
         title: stripHtml(p.title.rendered),
