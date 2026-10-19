@@ -3,7 +3,7 @@
 // existing WordPress/XenForo install while the homepage is served by Astro.
 
 export const SITE = "https://www.elitefitness.com";
-export const THEME_IMG = "/wp-content/themes/magazine-pro/images";
+export const THEME_IMG = "/assets/theme";
 
 export const navLinks = [
   {
@@ -297,8 +297,8 @@ export const footerLinks = [
 ];
 
 export const socialLinks = [
-  { label: "Facebook", href: "https://www.facebook.com/anabolicsteroid", icon: "/wp-content/plugins/social-media-widget/images/default/32/facebook.png" },
-  { label: "Twitter", href: "https://twitter.com/elitefitness", icon: "/wp-content/plugins/social-media-widget/images/default/32/twitter.png" },
+  { label: "Facebook", href: "https://www.facebook.com/anabolicsteroid", icon: "/assets/icons/facebook.png" },
+  { label: "Twitter", href: "https://twitter.com/elitefitness", icon: "/assets/icons/twitter.png" },
 ];
 
 export const stats = { members: "369,736", posts: "9,455,342" };

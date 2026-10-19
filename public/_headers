@@ -1,6 +1,8 @@
 /images/*
   Cache-Control: public, max-age=31536000, immutable
-/wp-content/*
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/media/*
   Cache-Control: public, max-age=31536000, immutable
 /css/*
   Cache-Control: public, max-age=604800
