@@ -1,8 +1,12 @@
 ---
-import { articles as staticArticles, SITE, THEME_IMG } from "../data/home";
-import { fetchLatestArticles } from "../lib/wordpress";
+import { SITE, THEME_IMG } from "../data/home";
+import type { Article } from "../lib/wordpress";
 
-const articles = (await fetchLatestArticles(3)) ?? staticArticles;
+interface Props {
+  articles: Article[];
+}
+
+const { articles } = Astro.props;
 ---
 <div id="articles-box">
   <div class="featured-articles">

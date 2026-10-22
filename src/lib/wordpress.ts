@@ -12,7 +12,11 @@ export interface Article {
   image?: string;
 }
 
+import { withTtlCache } from "./cache";
+
 const WP_API_BASE = import.meta.env.WP_API_BASE;
+const FETCH_TIMEOUT_MS = 5000;
+const CACHE_TTL_MS = 60_000;
 
 const HTML_ENTITIES: Record<string, string> = {
   "&#8211;": "–",
@@ -49,19 +53,24 @@ function stripPodcastPlayerBoilerplate(text: string): string {
   return text.slice(match.index + match[0].length);
 }
 
-// Image URLs come back absolute (https://www.elitefitness.com/articles/wp-content/
-// uploads/2024/06/file.jpg), which bakes both the WordPress origin and the
+// Image URLs come back absolute, which bakes both the WordPress origin and the
 // "wp-content/uploads" CMS fingerprint into page source. Rewrite to an opaque
-// /media/<year>/<month>/<file> path; the Worker (src/worker.ts) maps that
-// pattern back to the real uploads path when proxying to the CMS origin.
-const UPLOADS_PATH_PATTERN = /\/wp-content\/uploads\/(\d{4}\/\d{2}\/.+)$/;
+// /media/<namespace>/<year>/<month>/<file> path; the Worker (src/worker.ts,
+// mirrored by the astro.config.mjs dev middleware) maps that pattern back to
+// the real uploads path when proxying to the CMS origin. Two namespaces exist
+// because article media lives under /articles/wp-content/uploads/ while the
+// homepage carousel's custom post type stores its images under the site
+// root's /wp-content/uploads/.
+const UPLOADS_PATH_PATTERN = /^\/(articles\/)?wp-content\/uploads\/(\d{4}\/\d{2}\/.+)$/;
 
-function toRelativeMediaPath(url: string | undefined): string | undefined {
+export function toRelativeMediaPath(url: string | undefined): string | undefined {
   if (!url) return url;
   try {
     const { pathname } = new URL(url);
     const match = pathname.match(UPLOADS_PATH_PATTERN);
-    return match ? `/media/${match[1]}` : pathname;
+    if (!match) return pathname;
+    const namespace = match[1] ? "articles" : "root";
+    return `/media/${namespace}/${match[2]}`;
   } catch {
     return url;
   }
@@ -77,9 +86,14 @@ function formatDate(iso: string): { day: string; month: string } {
 
 export async function fetchLatestArticles(count = 3): Promise<Article[] | null> {
   if (!WP_API_BASE) return null;
+  return withTtlCache(`articles:${count}`, CACHE_TTL_MS, () => fetchLatestArticlesUncached(count));
+}
 
+async function fetchLatestArticlesUncached(count: number): Promise<Article[] | null> {
   try {
-    const res = await fetch(`${WP_API_BASE}/posts?per_page=${count}&_embed`);
+    const res = await fetch(`${WP_API_BASE}/posts?per_page=${count}&_embed`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    });
     if (!res.ok) throw new Error(`WP API responded ${res.status}`);
     const posts = await res.json();
 

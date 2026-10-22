@@ -1,5 +1,12 @@
 ---
-import { SITE, stats } from "../data/home";
+import { SITE } from "../data/home";
+import type { ForumStats } from "../lib/forum";
+
+interface Props {
+  stats: ForumStats;
+}
+
+const { stats } = Astro.props;
 ---
 <div id="top-section">
   <div class="top">

@@ -44,7 +44,7 @@ export const navLinks = [
   }
 ];
 
-export const carousel = [
+export const staticCarousel = [
   {
     "href": "https://www.elitefitness.com/articles/ironoverload-io-hardcore-70-2024-testosterone-enanthate-cypionate-propionate-revisited/",
     "img": "/images/podcasts/placeholder.png",

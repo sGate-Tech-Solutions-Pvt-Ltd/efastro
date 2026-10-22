@@ -8,11 +8,31 @@ import ForumSections from "../components/ForumSections.astro";
 import Footer from "../components/Footer.astro";
 import LeadPopup from "../components/LeadPopup.astro";
 import BackToTop from "../components/BackToTop.astro";
+import { SITE, stats as staticStats, articles as staticArticles, staticCarousel, forumSections as staticForumSections } from "../data/home";
+import { fetchForumStats, fetchLatestThreads } from "../lib/forum";
+import { fetchLatestArticles } from "../lib/wordpress";
+import { fetchLiveCarousel } from "../lib/carousel";
 
 const description =
   "EliteFitness Is the oldest bodybuilding community forums in the world, started in 1996 it has grow to over 400,000 members. With topics like Anabolic steroids,Sarms,prohormones,TRT, hormone replacement and bodybuilding.";
 const bodyClass =
   "home blog wp-theme-genesis wp-child-theme-magazine-pro custom-header header-image full-width-content genesis-breadcrumbs-hidden genesis-footer-widgets-visible magazine-home";
+
+// All live data this page needs comes from independent external sources
+// (forum stats, carousel markup, WP articles, per-section forum RSS). Fetch
+// them all in parallel here rather than letting each component block the
+// render pipeline on its own inline await.
+const [stats, carousel, articles, forumSections] = await Promise.all([
+  fetchForumStats(`${SITE}/forum/`).then((s) => s ?? staticStats),
+  fetchLiveCarousel().then((c) => c ?? staticCarousel),
+  fetchLatestArticles(3).then((a) => a ?? staticArticles),
+  Promise.all(
+    staticForumSections.map(async (sec) => ({
+      ...sec,
+      posts: (await fetchLatestThreads(sec.href, sec.posts.length)) ?? sec.posts,
+    }))
+  ),
+]);
 ---
 <BaseLayout title="EliteFitness.com Bodybuilding and Steroids Mega community" description={description} bodyClass={bodyClass}>
   <Header />
@@ -21,12 +41,12 @@ const bodyClass =
     <div class="site-inner">
       <div class="content-sidebar-wrap">
         <main class="content">
-          <TopSection />
-          <PostCarousel />
-          <ExpertArticles />
+          <TopSection stats={stats} />
+          <PostCarousel carousel={carousel} />
+          <ExpertArticles articles={articles} />
         </main>
       </div>
-      <ForumSections />
+      <ForumSections forumSections={forumSections} />
     </div>
     <Footer />
   </div>

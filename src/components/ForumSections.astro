@@ -1,5 +1,13 @@
 ---
-import { forumSections, THEME_IMG } from "../data/home";
+import { forumSections as staticForumSections, THEME_IMG } from "../data/home";
+
+type ForumSection = (typeof staticForumSections)[number];
+
+interface Props {
+  forumSections: ForumSection[];
+}
+
+const { forumSections } = Astro.props;
 ---
 <div class="outer-wide-wrap">
   {forumSections.map((sec) => (
@@ -15,7 +23,7 @@ import { forumSections, THEME_IMG } from "../data/home";
             <header>
               <div class="date">{p.date}</div>
               <div class="author-avatar">
-                <img src={`${THEME_IMG}/avatar.jpg`} width="64" height="64" alt={`Forum member ${p.author}`} loading="lazy" />
+                <img src="/assets/favicons/cropped-elite-logo-fav-512-192x192.jpg" width="64" height="64" alt={`Forum member ${p.author}`} />
               </div>
               <div class="author-meta">
                 <div class="meta-author">

@@ -1,5 +1,13 @@
 ---
-import { carousel } from "../data/home";
+import type { CarouselItem } from "../lib/carousel";
+
+interface Props {
+  carousel: CarouselItem[];
+}
+
+const DEFAULT_IMG = "/images/podcasts/placeholder.png";
+
+const { carousel } = Astro.props;
 ---
 <div id="pcp_wrapper-5693" class="sp-pcp-section sp-pcp-container pcp-wrapper-5693 pcp-carousel-wrapper standard sp-carousel_layout">
   <div id="sp-pcp-id-5693" class="swiper swiper-container sp-pcp-carousel top_right" dir="ltr" data-post-carousel>
@@ -11,12 +19,14 @@ import { carousel } from "../data/home";
               <div class="sp-pcp-post-thumb-area">
                 <a class="sp-pcp-thumb" href={item.href} target="_blank" rel="nofollow">
                   <img
-                    src={item.img}
+                    src={item.img || DEFAULT_IMG}
                     width={item.w}
                     height={item.h}
                     alt=""
-                    loading={i < 4 ? "eager" : "lazy"}
+                    loading={i === 0 ? "eager" : "lazy"}
+                    fetchpriority={i === 0 ? "high" : "auto"}
                     decoding="async"
+                    onerror={`this.onerror=null;this.src='${DEFAULT_IMG}'`}
                   />
                 </a>
               </div>

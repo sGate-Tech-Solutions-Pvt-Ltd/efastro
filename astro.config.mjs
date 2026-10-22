@@ -11,7 +11,7 @@ import { defineConfig } from "astro/config";
 // not just `npm run preview` (wrangler). Keep the pattern/origin in sync with
 // src/worker.ts if either changes.
 const WP_MEDIA_ORIGIN = "https://www.elitefitness.com";
-const MEDIA_PROXY_PATH_PATTERN = /^\/media\/(\d{4}\/\d{2}\/.+)$/;
+const MEDIA_PROXY_PATH_PATTERN = /^\/media\/(articles|root)\/(\d{4}\/\d{2}\/.+)$/;
 
 /** @type {import("vite").Plugin} */
 const mediaProxyDevMiddleware = {
@@ -22,7 +22,8 @@ const mediaProxyDevMiddleware = {
       if (!match) return next();
 
       try {
-        const originUrl = new URL(`/articles/wp-content/uploads/${match[1]}`, WP_MEDIA_ORIGIN);
+        const prefix = match[1] === "articles" ? "articles/" : "";
+        const originUrl = new URL(`/${prefix}wp-content/uploads/${match[2]}`, WP_MEDIA_ORIGIN);
         const originResponse = await fetch(originUrl);
         res.statusCode = originResponse.status;
         res.setHeader("content-type", originResponse.headers.get("content-type") ?? "application/octet-stream");

@@ -12,7 +12,9 @@ interface Env {
 }
 
 const WP_MEDIA_ORIGIN = "https://www.elitefitness.com";
-const MEDIA_PROXY_PATH_PATTERN = /^\/media\/(\d{4}\/\d{2}\/.+)$/;
+const MEDIA_PROXY_PATH_PATTERN = /^\/media\/(articles|root)\/(\d{4}\/\d{2}\/.+)$/;
+const MEDIA_CACHE_SECONDS = 86400;
+const MEDIA_FETCH_TIMEOUT_MS = 5000;
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -20,14 +22,28 @@ export default {
     const match = url.pathname.match(MEDIA_PROXY_PATH_PATTERN);
 
     if (match) {
-      const originUrl = new URL(`/articles/wp-content/uploads/${match[1]}`, WP_MEDIA_ORIGIN);
-      const originResponse = await fetch(originUrl.toString(), {
-        cf: { cacheTtl: 3600, cacheEverything: true },
-      });
+      const prefix = match[1] === "articles" ? "articles/" : "";
+      const originUrl = new URL(`/${prefix}wp-content/uploads/${match[2]}`, WP_MEDIA_ORIGIN);
+
+      let originResponse: Response;
+      try {
+        originResponse = await fetch(originUrl.toString(), {
+          cf: { cacheTtl: MEDIA_CACHE_SECONDS, cacheEverything: true },
+          signal: AbortSignal.timeout(MEDIA_FETCH_TIMEOUT_MS),
+        });
+      } catch {
+        return new Response("Media temporarily unavailable", { status: 504 });
+      }
+
       // Re-wrap so we control headers and never leak the origin via redirects.
+      // Set our own long-lived Cache-Control so the edge/browser cache holds
+      // regardless of what (if anything) the WordPress origin sends.
+      const headers = new Headers(originResponse.headers);
+      headers.set("Cache-Control", `public, max-age=${MEDIA_CACHE_SECONDS}, immutable`);
+
       return new Response(originResponse.body, {
         status: originResponse.status,
-        headers: originResponse.headers,
+        headers,
       });
     }
 
