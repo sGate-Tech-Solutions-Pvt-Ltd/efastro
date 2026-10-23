@@ -2,8 +2,8 @@
 // dynamic WordPress media through this same domain, so neither the WordPress
 // origin nor its "wp-content/uploads" path structure is exposed in page
 // source (see the modernization plan's media-proxy architecture). Static
-// assets (including the bundled theme images under /wp-content/themes/...)
-// are served as-is; only post-upload media, rewritten at build time to
+// assets (including the bundled theme images under /assets/theme/...) are
+// served as-is; only post-upload media, rewritten at build time to
 // /media/<year>/<month>/<file>, is mapped back and fetched from the CMS
 // origin's real uploads path on demand.
 
