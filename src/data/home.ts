@@ -8,7 +8,7 @@ export const THEME_IMG = "/assets/theme";
 export const navLinks = [
   {
     "label": "ARTICLES & BLOG",
-    "href": "https://www.elitefitness.com/articles/"
+    "href": "/articles"
   },
   {
     "label": "STEROID PROFILES",
@@ -264,31 +264,31 @@ export const forumSections = [
 export const footerLinks = [
   {
     "label": "Advertise",
-    "href": "https://www.elitefitness.com/advertise/"
+    "href": "/advertise"
   },
   {
     "label": "Privacy",
-    "href": "https://www.elitefitness.com/privacy.html"
+    "href": "/privacy-policy"
   },
   {
     "label": "Disclaimer",
-    "href": "https://www.elitefitness.com/disclaimer.html"
+    "href": "/disclaimer"
   },
   {
     "label": "Disclosure Policy",
-    "href": "https://www.elitefitness.com/disclosure-policy"
+    "href": "/disclosure-policy"
   },
   {
     "label": "Terms of Service",
-    "href": "https://www.elitefitness.com/forum/terms-of-service.html"
+    "href": "/terms-of-service-agreement"
   },
   {
     "label": "Use Disclaimer",
-    "href": "https://www.elitefitness.com/use-disclaimer/"
+    "href": "/use-disclaimer"
   },
   {
     "label": "Copyright",
-    "href": "https://www.elitefitness.com/copyright"
+    "href": "/copyright"
   },
   {
     "label": "Contact",

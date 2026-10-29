@@ -1,0 +1,99 @@
+@charset "utf-8";
+/* CSS Document */
+
+@media (min-width:2501px) and (max-width: 2800px){	.nacateBox figure img {height: 526px;}}
+@media (min-width:2101px) and (max-width: 2500px) {	.nacateBox figure img {height: 526px;}}
+@media (min-width:1901px) and (max-width: 2100px) {	.nacateBox figure img {height: 596px;}}
+@media (min-width:1701px) and (max-width: 1900px) {
+	
+	.nacateBox figure img {height: 526px;}
+	
+}
+@media (min-width:1501px) and (max-width: 1700px) {}
+
+@media (max-width: 991px) {
+
+.aLeftRightMain {
+	display: block;
+
+}
+
+}
+
+@media (max-width: 767px) {
+
+.article_listingbox {
+
+	display: block;
+	
+}
+
+.autherBoxBottom aside {
+	margin: 20px 0 0;
+}
+
+.autherBoxBottom {
+
+	display: block;
+	
+}
+.article_listingbox aside {
+	margin: 20px 0 0;
+}
+
+
+.wrapWhite {
+
+	padding: 22px;
+	
+}
+.contentnew {
+	padding: 0 7px;
+}
+.headerbtn .btnTheme {
+	font-size: 12px;
+	padding: 4px 5px;
+}
+
+.headerlogo {
+
+	gap: 4px;
+
+}
+
+.search-toggle {
+	
+	width: 33px;
+
+	height: 28px;
+}
+
+
+
+.mainadvertiseContenttop {
+	display: block;
+	
+}
+
+.articleBottominner {
+
+	column-gap: 25px;
+}
+}
+
+
+
+
+@media (max-width: 480px) {
+.articleBottominner {
+	display: block;
+	
+}
+}
+
+
+
+@media (max-width: 360px) {
+
+}
+	

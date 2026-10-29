@@ -4,37 +4,58 @@ import { navLinks, SITE, THEME_IMG } from "../data/home";
 <header>
   <div style="clear:both;"></div>
 
+
   <nav id="mySidenav" class="sidenav" aria-label="Main menu">
+    <div class="menuTop">
+
+  <div class="menuTopLogo">
+  <figure><img src="http://localhost:4321/assets/theme/new-white-elite-logo.png" alt=""></figure>
     <a href="javascript:void(0)" class="closebtn" data-close-nav aria-label="Close menu">&times;</a>
+	</div>
+		<div class="menPadding">
+	<div class="selectmenu"><span>Menu</span></div>
+	<ul class="sMenubox">
     {navLinks.map((l) => (
-      <a target="_blank" href={l.href} itemprop="url">{l.label}</a>
+      <li> <a target="_blank" href={l.href} itemprop="url">{l.label}</a> </li>
     ))}
-    <a target="_blank" href={`${SITE}/articles/podcast/`}>
-      <span class="btn btn-danger btn-lg btn-block" style="display:inline-block;background-color:#ff0000;font-size:15px;padding:5px;width:60%;">
-        <img src={`${THEME_IMG}/podcast.png`} width="20" alt="" />PODCAST
-      </span>
-    </a>
-    <a target="_blank" href={`${SITE}/forum/forum.php`} itemprop="url">
-      <span class="btn btn-danger btn-lg btn-block" style="display:inline-block;background-color:#F09311;font-size:15px;padding:5px;width:60%;">COMMUNITY</span>
-    </a>
+	</ul>
+	  </div>
+	  
+	    </div>
+	    <div class="menubottom">
+	<div class="menPadding">
+  <div  class="menuTwobtn">
+ <article> <a class="btnTheme redbtn" target="_blank" href={`${SITE}/articles/podcast/`}>
+      
+       <i> <img src={`${THEME_IMG}/podcast.png`} width="20" alt="" /> </i><p>PODCAST</p>
+      
+    </a></article>
+
+  <article> <a class="btnTheme orangebtn" target="_blank" href={`${SITE}/forum/forum.php`} itemprop="url">
+      <p>COMMUNITY</p>
+    </a> </article>
+		  </div>
+		  </div>   </div> 
   </nav>
 
   <div id="main">
+   <div class="headerINNER">
+   <div class="headerlogo">
     <button type="button" class="nav-toggle" data-open-nav aria-label="Open menu" aria-controls="mySidenav">&#9776;</button>
-    <span>
+    <div class="logomain">
       <a href="/"><img src={`${THEME_IMG}/new-white-elite-logo.png`} width="60" alt="EliteFitness" /></a>
-    </span>
-    <span style="float:right;line-height:46px;">
-      <a href={`${SITE}/articles/podcast/`} target="_blank">
-        <span style="background:#ff0005;border-radius:4px;margin-right:0;padding:5px 5px;color:#fff;">
+    </div>
+    </div>
+    <div class="headerbtn">
+      <a href={`${SITE}/articles/podcast/`} target="_blank" class="btnTheme redbtn">
+        <span>
           <img src={`${THEME_IMG}/podcast.png`} width="20" alt="" />PODCAST
         </span>
       </a>
-      <a
+      <a class="btnTheme orangebtn"
         href={`${SITE}/forum/forum.php`}
         class="mobdevice"
-        style="color:#fff;margin-top:5px;background:#F09311;padding:5px 10px;margin-right:25px;border-radius:4px;"
-        target="_blank">COMMUNITY</a>&nbsp;&nbsp;&nbsp;
+        target="_blank">COMMUNITY</a>
       <button type="button" class="search-toggle" data-search-toggle aria-label="Search" aria-expanded="false">
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>
@@ -45,7 +66,8 @@ import { navLinks, SITE, THEME_IMG } from "../data/home";
           <meta content={`${SITE}/?s={s}`} itemprop="target" />
         </form>
       </div>
-    </span>
+    </div>
   </div>
+    </div>
 </header>
 <div style="clear:both;"></div>
